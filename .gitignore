@@ -1,2 +1,9 @@
 TheWorld/src/TheWorld/bin/Debug/netcoreapp1.0/TheWorld.dll
 TheWorld/src/TheWorld/bin/Debug/netcoreapp1.0/TheWorld.pdb
+TheWorld/\.vs/
+
+TheWorld/src/TheWorld/bin/
+
+TheWorld/src/TheWorld/obj/
+
+TheWorld/src/TheWorld/wwwroot/lib/
