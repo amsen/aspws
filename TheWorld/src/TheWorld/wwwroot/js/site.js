@@ -20,15 +20,21 @@
     //})
 
     var $sideMenuAndWrapper = $("#sidebar, #wrapper");
+    var $icon = $("#sideBarToggle i.fa")
+
 
     $("#sideBarToggle").on("click",function(){
         $sideMenuAndWrapper.toggleClass("hide-sidebar");
 
         if ($sideMenuAndWrapper.hasClass("hide-sidebar")) {
-            $(this).text("Show Sidebar");
+            //$(this).text("Show Sidebar");
+            $icon.removeClass("fa-angle-left");
+            $icon.addClass("fa-angle-right");
         }
         else {
-            $(this).text("Hide Sidebar");
+            //$(this).text("Hide Sidebar");
+            $icon.removeClass("fa-angle-right");
+            $icon.addClass("fa-angle-left");
         };
 
     });

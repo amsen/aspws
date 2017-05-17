@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheWorld.Models.Context;
 using TheWorld.Services;
 using TheWorld.ViewModels;
 
@@ -14,15 +16,35 @@ namespace TheWorld.Controllers.Web
     {
         private IMailService _mailService;
         private IConfigurationRoot _config;
+        private IWorldRepository _repository;
+        private ILogger<AppController> _logger;
 
-        public AppController(IMailService mailservice, IConfigurationRoot config)
+        public AppController(
+            IMailService mailservice, 
+            IConfigurationRoot config, 
+            IWorldRepository repository,
+            ILogger<AppController> logger)
         {
             _mailService = mailservice;
             _config = config;
+            _repository = repository;
+            _logger = logger;
         }
+
+
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                var data = _repository.GetAllTrips();
+                return View(data);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong getting information from DB: {ex.Message}");
+                return Redirect("/error");
+            }
+            
         }
 
         public IActionResult Contact()
