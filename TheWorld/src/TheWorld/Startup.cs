@@ -11,6 +11,9 @@ using TheWorld.Services;
 using Microsoft.Extensions.Configuration;
 using TheWorld.Models.Context;
 using TheWorld.Models.Context.Seed;
+using AutoMapper;
+using TheWorld.ViewModels.Types;
+using TheWorld.Models.Types;
 
 namespace TheWorld
 {
@@ -50,6 +53,8 @@ namespace TheWorld
 
             services.AddTransient<WorldContextSeedData>();
 
+            services.AddTransient<GeoCoordsService>();
+
             services.AddMvc();
         }
 
@@ -60,6 +65,13 @@ namespace TheWorld
             ILoggerFactory loggerFactory,
             WorldContextSeedData seeder)
         {
+
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<TripViewModel, Trip>().ReverseMap();
+                config.CreateMap<StopViewModel, Stop>().ReverseMap();
+            });
+
             //app.UseDefaultFiles();
             if (env.IsEnvironment("Development"))
             {
